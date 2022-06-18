@@ -2,7 +2,7 @@
   "name": "fcc_calculator",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jsfcccalculator.netflify.app",
+  "homepage": "https://jsfcccalculator.netlify.app",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",

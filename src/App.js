@@ -209,9 +209,7 @@ function App() {
                       setSym('+');
                       setTruthy(false)
                     }
-                    else {
-                      return false
-                    }
+                 
 
                      }
             switch (sym) {
@@ -238,7 +236,9 @@ function App() {
                 setOperand('');
                 setSym('+');
                 setTruthy(false)
-                setNum(diff+button.name)
+                setNum(diff+button.name);
+                array1 =[];
+                array1.push(diff)
                
               }
               else {
@@ -263,7 +263,9 @@ function App() {
                     setOperand('');
                     setSym('+');
                     setTruthy(false)
-                    setNum(divide+button.name)
+                    setNum(divide+button.name);
+                    array1 =[];
+                    array1.push(divide)
                    
                   }
                   else {
@@ -292,7 +294,9 @@ function App() {
                       setOperand('');
                       setSym('+');
                       setTruthy(false)
-                      setNum(multiply+button.name)
+                      setNum(multiply+button.name);
+                      array1 =[];
+                      array1.push(multiply)
                     }
                     else {
                       return false
@@ -495,9 +499,7 @@ function App() {
                        setSym('\xF7');
                        setTruthy(false);
                        }
-                       else {
-                         return false
-                       }
+                  
                        }
               switch (sym) {
                 case '+': 
@@ -523,7 +525,9 @@ function App() {
                   setOperand('');
                   setSym('\xF7');
                   setTruthy(false)
-                  setNum(sum+button.name)
+                  setNum(sum+button.name);
+                  array1 =[];
+                  array1.push(sum)
                   
                 }
                 else {
@@ -548,7 +552,9 @@ function App() {
                       setOperand('');
                       setSym('\xF7');
                       setTruthy(false)
-                      setNum(diff+button.name)
+                      setNum(diff+button.name);
+                      array1 =[];
+                      array1.push(diff)
                      
                     }
                     else {
@@ -575,7 +581,9 @@ function App() {
                         setOperand('');
                         setSym('\xF7');
                         setTruthy(false)
-                        setNum(multiply+button.name)
+                        setNum(multiply+button.name);
+                        array1 =[];
+                        array1.push(multiply)
                        
                         
                        
@@ -714,6 +722,7 @@ function App() {
                
             
                 if (sym !== '\u2013') {
+                  
                   if (typeof calc === 'number') {
                     array1 = [];
                     array1.push(calc);
@@ -755,7 +764,7 @@ function App() {
                  
                      
                        
-                     
+                    
                   setOperand('');
                   if (array1.length === 1) {
                     
@@ -770,9 +779,7 @@ function App() {
                        setSym('\u2013');
                        setTruthy(false)
                        }
-                       else {
-                         return false
-                       }
+                     
                       }
               switch (sym) {
                 case '+': 
@@ -798,7 +805,9 @@ function App() {
                   setOperand('');
                   setSym('\u2013');
                   setTruthy(false)
-                  setNum(sum+button.name)
+                  setNum(sum+button.name);
+                  array1 =[];
+                  array1.push(sum)
                   
                 }
                 else {
@@ -819,7 +828,9 @@ function App() {
                       setOperand('');
                       setSym('\u2013');
                       setTruthy(false)
-                      setNum(divide+button.name)
+                      setNum(divide+button.name);
+                      array1 =[];
+                      array1.push(divide)
                       
                     }
                     else {
@@ -847,7 +858,9 @@ function App() {
                         setOperand('');
                         setSym('\u2013');
                         setTruthy(false)
-                        setNum(multiply+button.name)
+                        setNum(multiply+button.name);
+                        array1 =[];
+                        array1.push(multiply)
      
                       }
                       else {
@@ -983,7 +996,7 @@ function App() {
              
             
               if (sym !== '\xD7') {
-                
+             
                 if (typeof calc === 'number') {
                   array1 = [];
                   array1.push(calc)
@@ -1008,7 +1021,8 @@ function App() {
                       else {
                         if (isNaN(operand%Math.round(operand))) {
                           setSym('\xD7');
-                          setTruthy(false)
+                          setTruthy(false);
+                          
                         }
                         else {
                         array1.push(parseFloat(operand));
@@ -1027,7 +1041,7 @@ function App() {
                    
                 setOperand('');
                 if (array1.length === 1) {
-                  
+                
                     setNum(array1[0]+button.name)
                     setSym('\xD7');
                     setTruthy(false)
@@ -1039,10 +1053,6 @@ function App() {
                       setSym('\xD7');
                       setTruthy(false)
                     }
-                    else {
-                      return false
-                    }
-
                      }
             switch (sym) {
               case '\u2013': 
@@ -1067,8 +1077,10 @@ function App() {
                 setCalc(diff);
                 setOperand('');
                 setSym('\xD7');
-                setTruthy(false)
-                setNum(diff+button.name)
+                setTruthy(false);
+                setNum(diff+button.name);
+                array1 =[];
+                array1.push(diff)
                
               }
               else {
@@ -1092,8 +1104,10 @@ function App() {
                     setCalc(divide);
                     setOperand('');
                     setSym('\xD7');
-                    setTruthy(false)
-                    setNum(divide+button.name)
+                    setTruthy(false);
+                    setNum(divide+button.name);
+                    array1 =[];
+                    array1.push(divide)
                    
                   }
                   else {
@@ -1110,7 +1124,7 @@ function App() {
                         array1.pop(currentValue);
                         setOperand('');
                       setSym('\xD7');
-                      setTruthy(false)
+                      setTruthy(false);
                       setNum(array1[0]+button.name)
                         return false
                       }
@@ -1120,9 +1134,11 @@ function App() {
                       setCalc(sum);
                       setOperand('');
                       setSym('\xD7');
-                      setTruthy(false)
-                      setNum(sum+button.name)
-                    
+                      setTruthy(false);
+                      setNum(sum+button.name);
+                      array1 =[];
+                      array1.push(sum)
+                     
                       
                      
                     }

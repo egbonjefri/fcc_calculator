@@ -82,6 +82,9 @@ input:focus-visible {
     width: 17rem;
     font-size: 1.75rem
   }
+  .input-area {
+    height: 8.5rem !important
+  }
   .calc-buttons {
 
     font-size: 1rem
@@ -90,6 +93,7 @@ input:focus-visible {
   p{
     font-size: 0.65rem
   }
+ 
 }
 .calc-buttons:hover {
   border: solid 2px white;

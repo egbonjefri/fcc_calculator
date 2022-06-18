@@ -84,7 +84,18 @@ function App() {
               if (operand === '' || typeof operand === 'object') {
                 if (operand%Math.round(operand) !== 0) {
                   if (array1[0]%Math.round(array1[0]) !== 0 && array1[0] !== undefined) {
-                   return false
+                    if (Math.ceil(array1[0]) === 1) {
+                      if (typeof num === 'number') {
+                        return false }
+                        else {
+                      setNum(num+'0'+button.name);
+                      setOperand('0.'+operand);
+                      }
+                    }
+                    else {
+                      setNum(num+'0'+button.name);
+                      setOperand('0.'+operand);
+                    }
                   }
                   else {
                 setNum(num+'0'+button.name);

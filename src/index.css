@@ -111,6 +111,7 @@ input:focus-visible {
 .active {
   background-color: white;
   transition: .35s ease-out;
+  padding: 0.1rem
 }
 
 p a {

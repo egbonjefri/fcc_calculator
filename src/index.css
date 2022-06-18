@@ -1,0 +1,120 @@
+
+body {
+  margin: 5rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: black;
+  color: azure;
+ 
+}
+.App{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.calc-cta {
+  display: flex;
+  width: 35rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+.input-area{
+  width: 100%;
+  height: 10rem;
+}
+input {
+  width: 25rem;
+  margin: 0 5rem;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 3rem;
+  text-align: right; 
+}
+input:focus-visible {
+  outline: none !important;
+
+}
+.calc-buttons {
+  border: solid 1px rgb(0, 0, 0);
+  background: rgb(29, 29, 29);
+  border-radius: 50%;
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  cursor: pointer;
+  transition: .35s ease-in-out;
+}
+@media (max-width: 560px) {
+  .calc-cta {
+    width: 25rem
+  }
+  input {
+    width: 15rem;
+    font-size: 2.1rem
+  }
+  .calc-buttons {
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem
+  }
+  .output {
+    margin: 2rem !important
+  }
+  p{
+    font-size: 0.65rem
+  }
+}
+@media (max-width: 415px) {
+
+  input {
+    width: 17rem;
+    font-size: 1.75rem
+  }
+  .calc-buttons {
+
+    font-size: 1rem
+  }
+ 
+  p{
+    font-size: 0.65rem
+  }
+}
+.calc-buttons:hover {
+  border: solid 2px white;
+  box-shadow: 1px 1px #ffffff;
+
+}
+.output {
+  text-align: right;
+  margin: 1.5rem 3.35rem;
+  font-size: 1.5rem;
+  min-height: 4rem;
+  border-bottom: solid 2px white; 
+}
+.output span {
+  padding: 1rem;
+  text-decoration: none;
+  color: white;
+}
+.active {
+  background-color: white;
+  transition: .35s ease-out;
+}
+
+p a {
+  text-decoration: underline;
+  color: white
+}
+

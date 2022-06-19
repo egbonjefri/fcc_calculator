@@ -15,6 +15,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  
 }
 .calc-cta {
   display: flex;
@@ -106,6 +107,7 @@ input:focus-visible {
   font-size: 1.5rem;
   min-height: 4rem;
   border-bottom: solid 2px white; 
+  
 }
 .output span {
   padding: 1rem;
@@ -122,4 +124,6 @@ p a {
   text-decoration: underline;
   color: white
 }
-
+.del-icon {
+  cursor: pointer;
+}

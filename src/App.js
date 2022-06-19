@@ -1,6 +1,8 @@
 import { buttons } from './Button'
 import { useState } from 'react'
 import './index.css'
+import { Icon } from '@iconify/react';
+
 let array1 = [];
 
 function App() {
@@ -11,7 +13,11 @@ function App() {
   const [truthy, setTruthy] = useState(false);
   const [equals, setEquals] = useState([]);
   const [bracket, setbracket] = useState([]);
-
+  function handleClick() {
+    
+    setNum(num.replace(num.charAt([num.length-1]), ''));
+    setOperand(num.replace(num.charAt([num.length-1]), ''))
+  }
   const buttonMap = buttons.map((button) => {
     return (
       <div onClick={()=>{
@@ -88,18 +94,27 @@ function App() {
                       if (typeof num === 'number') {
                         return false }
                         else {
-                      setNum(num+'0'+button.name);
-                      setOperand('0.'+operand);
+                         
+                          setNum(num+'0'+button.name);
+                          setOperand('0.'+operand);
+                        
                       }
                     }
                     else {
-                      setNum(num+'0'+button.name);
-                      setOperand('0.'+operand);
+                      if (typeof num === 'number') {
+                        return false }
+                        else {
+                      setNum(num+button.name);
+                      setOperand(operand+button.name); 
+                      setTruthy(true)
                     }
                   }
+                  }
                   else {
+                  
                 setNum(num+'0'+button.name);
                 setOperand('0.'+operand);
+              
                 }
                 }
                 else {
@@ -1465,7 +1480,11 @@ function App() {
         <div className='calc-cta'>
         <div className='input-area'>
        <input className='input-text' defaultValue={num} disabled/>
-        <div className='output'><span>{calc}</span></div>
+        <div className='output'><span>{calc}</span>
+        { num.length > 0 &&
+        <Icon className='del-icon' onClick={handleClick} icon="akar-icons:backspace" />
+      }
+        </div>
       </div>
           {buttonMap}
         </div>

@@ -111,10 +111,16 @@ function App() {
                   }
                   }
                   else {
-                  
+                    if (array1[0]%Math.round(array1[0]) === 0) {
+                      setNum(num+button.name);
+                     setOperand(operand+button.name); 
+                     setTruthy(true)
+                    }
+                    else {
                 setNum(num+'0'+button.name);
                 setOperand('0.'+operand);
-              
+               
+                    }
                 }
                 }
                 else {
@@ -1309,6 +1315,9 @@ function App() {
               break
 
           case '=':
+            if (typeof sym !== 'string') {
+              return false
+            }
             setEquals(1)
             if (typeof calc === 'number') {
               array1 = [];

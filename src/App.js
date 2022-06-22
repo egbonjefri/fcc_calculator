@@ -142,24 +142,31 @@ function App() {
         
             if (array1.length > 0) {
               
-              if (typeof operand === 'number') {
-                let a = Number(operand)/100;
+              if (typeof calc === 'number') {
+                
+                let a = Number(calc)/100;
                 array1 = [];
                 array1.push(a);
-                setSym('\xD7');
-                setTruthy(false);
-                setNum(`${array1[0]}\xD7`);
-                setOperand('')
+                setNum(`${array1[0]}%`);
+                setOperand('');
+                setCalc(a)
               }
               else {
-               
-              let a = array1[0]/100;
-              array1 = [];
-              array1.push(a);
-              setSym('\xD7');
-              setOperand('')
-              setTruthy(false);
-              setNum(`${array1[0]}\xD7`);
+                if (operand === '' && typeof equals === 'object') {
+                 return false
+                }
+                if (operand === '' && equals === 1) {
+                    let a = array1[0]/100
+                    setNum(array1[0]+'%');
+                    setOperand(a);
+                    setCalc(a)
+                }
+                else {
+                  let a = Number(operand)/100
+                  setNum(array1[0]+sym+operand+button.name)
+                  setOperand(a);
+                  setCalc(a)
+                }
             }
           }
             else {
@@ -168,17 +175,18 @@ function App() {
                 if (typeof operand === 'object') {
                   return false
                 }
-                else
-                setOperand(Number(operand)/100);
+                else {
+                let a = Number(operand)/100
                 setNum(`${operand}%\xD7`);
                 setSym('\xD7');
                 setTruthy(false)
                 array1 = [];
-                array1.push(operand/100);
+                array1.push(a);
                 setOperand('')
+                setCalc(a)
               }
             }
-            
+            }  
           break
 
             case '+':

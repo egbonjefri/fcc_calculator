@@ -38,7 +38,9 @@ function App() {
           break
           case '( )':
             if (bracket === 1) {
-              setNum(num+')')
+              setNum(num+')');
+              setSym('\xd7');
+              setTruthy(false)
               setbracket([]);
             }
             else {
@@ -47,40 +49,39 @@ function App() {
             }
             break
           case '+/-':
-            if (operand !== '') {
-            if (truthy) {
-              setNum('(+'+num);
-              setbracket(1)
-              setTruthy(false)
-            }
-            else {
-              setNum('(-'+num);
-              setOperand('-')
-              setbracket(1)
-              setTruthy(true)
-            }
-            }
-            else {
-              if(typeof equals !== 'object' && array1[0] > 0) {
-                let a = array1[0] * -1;
-                array1 = [];
-                array1.push(a);
-                setNum(array1[0])
+            if (typeof operand === 'object') {
+              if (equals ===1 && array1[0] < 0) {
+                setNum(array1[0]*-1)
+                setOperand(array1[0]*-1);
+                setSym([])
               }
               else {
-                if (array1[0] < 0) {
-                  let a = array1[0] * -1;
-                  array1 = [];
-                  array1.push(a);
-                  setNum(array1[0])
+              setNum('(-');
+              setOperand('-')
+            }
+          }
+            else {
+              if (typeof bracket === 'object') {
+              setNum('');
+              setOperand([]);
+            }
+            else {
+              if (operand < 0) {
+                setNum(operand*-1)
+                setOperand(operand*-1)
+              }
+              else {
+                if (typeof sym !== 'object') {
+                  setNum(num+'(-');
+                  setOperand('-'+operand)
                 }
                 else {
-                setOperand('-');
-                setNum(array1[0]+sym+'(-');
-                setbracket(1)
-              }
+             setNum('(-'+num);
+             setOperand('-'+operand)
+                }
             }
-            }
+          }
+        }
           
             break
           case '.':
@@ -127,7 +128,13 @@ function App() {
                   return false
                 }
               }
+              else {
+              setNum('0'+button.name);
+              setOperand('0'+button.name); 
+              setTruthy(true)
+             
             }
+          }
             else {
              
               if (!truthy) {
@@ -165,7 +172,6 @@ function App() {
                   let a = Number(operand)/100
                   setNum(array1[0]+sym+operand+button.name)
                   setOperand(a);
-                  setCalc(a)
                 }
             }
           }
@@ -193,45 +199,39 @@ function App() {
              
             
               if (sym !== '+') {
-                
+               
                 if (typeof calc === 'number') {
                   array1 = [];
                   array1.push(calc)
                 }
+                else if (typeof operand === 'string') {
+                  if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                    return false
+                  }
+                  else {
+                  if (operand%Math.round(operand) !== 0) {
+                    array1.push(parseFloat(operand));
+                  }
+                  else {
+                  array1.push(parseInt(operand));
+                  }
+                }
+              }
                 else {
-                 
+                
                   if (typeof operand === 'number') {
                     
                     if (operand%Math.round(operand) !== 0) {
+                      array1 = []
                       array1.push(parseFloat(operand));
                     }
                     else {
+                    array1 = []
                     array1.push(parseInt(operand));
                     }
-                   
+                  
                   }
-                  if (typeof operand === 'string') {
-                    if (operand%Math.round(operand) !== 0) {
-                      if (Math.ceil(operand) === 1) {
-                        array1.push(parseFloat(operand));
-                      }
-                      else {
-                        if (isNaN(operand%Math.round(operand))) {
-                          setSym('+');
-                          setTruthy(false)
-                        }
-                        else {
-                        array1.push(parseFloat(operand));
-                        }
-                      }
-                     
-                    }
-                    else {
-                    array1.push(parseInt(operand));
-                    
-                    }
-                  }
-                
+
                       }
                      
                    
@@ -240,7 +240,8 @@ function App() {
                   
                     setNum(array1[0]+button.name)
                     setSym('+');
-                    setTruthy(false)
+                    setTruthy(false);
+
                          }
       
                     else {
@@ -289,15 +290,12 @@ function App() {
                 case '\xF7':
                   const divide = array1.reduce(
                     (previousValue, currentValue) => {
-                      if (typeof currentValue !== 'number' || isNaN(currentValue)) {
-                        array1.pop(currentValue);
-                        setOperand('');
-                      setSym('+');
-                      setTruthy(false)
-                      setNum(array1[0]+button.name)
-                        return 'I will not divide by Zero :p'
+                      if (typeof currentValue !== 'number' || isNaN(currentValue)) { 
+                      array1.pop(currentValue);
+                      return false
                       }
-                     return previousValue / currentValue});
+                      else {
+                     return previousValue / currentValue}});
                   if (typeof divide === 'number') {
                     setCalc(divide);
                     setOperand('');
@@ -309,8 +307,10 @@ function App() {
                    
                   }
                   else {
-                    setCalc(divide);
-                    setNum('')
+                    setOperand('');
+                    setSym('+');
+                    setTruthy(false)
+                    setNum(array1[0]+button.name)
                   }
                   
                   break
@@ -372,7 +372,22 @@ function App() {
                 array1.push(parseInt(operand));
                
                 }
+                if (typeof operand === 'number') {
                     
+                  if (operand%Math.round(operand) !== 0) {
+                    array1 = []
+                    array1.push(parseFloat(operand));
+                  }
+                  else {
+                  array1 = []
+                  array1.push(parseInt(operand));
+                  }
+                  setOperand('');
+                  setSym('+');
+                  setTruthy(false);
+                  setNum(operand+button.name)
+                }
+                else { 
                 setOperand('');
                       
                 const sum = array1.reduce(
@@ -407,30 +422,21 @@ function App() {
                     return false
                   }
                 }
-                 
+              }
                }
                else {
                
-                
-                if (operand%Math.round(operand) !== 0) {
-                  if (Math.ceil(operand) === 1) {
-                    array1.push(parseFloat(operand));
-                  }
-                  else {
-                    if (isNaN(operand%Math.round(operand))) {
-                      return false
-                    }
-                    else {
-                    array1.push(parseFloat(operand));
-                    }
-                  }
-
+                if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                  return false
                 }
                 else {
+                if (operand%Math.round(operand) !== 0) {
+                    array1.push(parseFloat(operand));
+                    }
+                else {
                 array1.push(parseInt(operand));
-                
                 }
-                    
+              }   
                 setOperand('');
   
                 const sum = array1.reduce(
@@ -488,7 +494,7 @@ function App() {
                     array1.push(calc);
                    
                   }
-                    if (typeof operand === 'number') {
+                   else if (typeof operand === 'number') {
                       
                       if (operand%Math.round(operand) !== 0) {
                         array1.push(parseFloat(operand));
@@ -499,29 +505,21 @@ function App() {
                       }
                      
                     }
-                    if (typeof operand === 'string') {
-                      
+                  else if (typeof operand === 'string') {
+                      if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                        return false
+                      }
+                      else {
                       if (operand%Math.round(operand) !== 0) {
-                        if (Math.ceil(operand) === 1) {
-                          array1.push(parseFloat(operand));
-                        }
-                        else {
-                          if (isNaN(operand%Math.round(operand))) {
-                            setSym('\xF7');
-                            setTruthy(false)
-                          }
-                          else {
-                          array1.push(parseFloat(operand));
-                          }
-                        }
- 
+                        setSym('\xF7');
+                        setTruthy(false)
+                        array1.push(parseFloat(operand));
                       }
                       else {
                       array1.push(parseInt(operand));
-                      
                       }
                     }
-                 
+                  }
                      
                        
                      
@@ -659,7 +657,22 @@ function App() {
                   array1.push(parseInt(operand));
                   
                   }
-                      
+                  if (typeof operand === 'number') {
+                    
+                    if (operand%Math.round(operand) !== 0) {
+                      array1 = []
+                      array1.push(parseFloat(operand));
+                    }
+                    else {
+                    array1 = []
+                    array1.push(parseInt(operand));
+                    }
+                    setOperand('');
+                    setSym('\xF7');
+                    setTruthy(false);
+                    setNum(operand+button.name)
+                  }
+                  else {     
                   setOperand('');
     
                   const divide = array1.reduce(
@@ -690,29 +703,21 @@ function App() {
                     setNum(divide)
                     
                   }
-                   
+                }
                  }
                  else {
-                  
-                  
-                  if (operand%Math.round(operand) !== 0) {
-                    if (Math.ceil(operand) === 1) {
-                      array1.push(parseFloat(operand));
-                    }
-                    else {
-                      if (isNaN(operand%Math.round(operand))) {
-                        return false
-                      }
-                      else {
-                      array1.push(parseFloat(operand));
-                      }
-                    }
-
+                  if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                    return false
                   }
+                  else {   
+                  if (operand%Math.round(operand) !== 0) {
+                      array1.push(parseFloat(operand));
+                      }
+                  
                   else {
                   array1.push(parseInt(operand));
-                  
                   }
+                }
                   setOperand('');
     
                   const divide = array1.reduce(
@@ -759,17 +764,16 @@ function App() {
 
 
                 case '\u2013':
-               
+                 
             
                 if (sym !== '\u2013') {
-                  
+                 
                   if (typeof calc === 'number') {
                     array1 = [];
                     array1.push(calc);
-                    
                   }
-                    if (typeof operand === 'number') {
-                      
+                   else if (typeof operand === 'number') {
+                     
                       if (operand%Math.round(operand) !== 0) {
                         array1.push(parseFloat(operand));
                       }
@@ -779,41 +783,36 @@ function App() {
                       }
                      
                     }
-                    if (typeof operand === 'string') {
-                      
+                  else if (typeof operand === 'string') {
+                     
+                      if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                        return false
+                      }
+                      else {
                       if (operand%Math.round(operand) !== 0) {
-                        if (Math.ceil(operand) === 1) {
-                          array1.push(parseFloat(operand));
-                        }
-                        else {
-                          if (isNaN(operand%Math.round(operand))) {
-                            setSym('\u2013');
-                            setTruthy(false)
-                          }
-                          else {
-                          array1.push(parseFloat(operand));
-                          }
-                        }
- 
+                        setSym('\u2013');
+                        setTruthy(false);
+                        array1.push(parseFloat(operand));
                       }
                       else {
                       array1.push(parseInt(operand));
                       
                       }
                     }
-                 
-                     
+                  }
+                  
                        
-                    
+                 
                   setOperand('');
                   if (array1.length === 1) {
-                    
+                   
                       setNum(array1[0]+button.name)
                       setSym('\u2013');
                       setTruthy(false)
                            }
         
                       else {
+                       
                        if (typeof calc === 'number') {
                      setNum(calc+button.name);
                        setSym('\u2013');
@@ -880,6 +879,7 @@ function App() {
                     
                     break
                     case '\xD7': 
+                   
                     const multiply = array1.reduce(
                       (previousValue, currentValue) => {
                         if (typeof currentValue !== 'number' || isNaN(currentValue)) {
@@ -935,7 +935,22 @@ function App() {
                   array1.push(parseInt(operand));
                   
                   }
-                      
+                  if (typeof operand === 'number') {
+                    
+                    if (operand%Math.round(operand) !== 0) {
+                      array1 = []
+                      array1.push(parseFloat(operand));
+                    }
+                    else {
+                    array1 = []
+                    array1.push(parseInt(operand));
+                    }
+                    setOperand('');
+                    setSym('\u2013');
+                    setTruthy(false);
+                    setNum(operand+button.name)
+                  }
+                  else {   
                   setOperand('');
     
                   const diff = array1.reduce(
@@ -969,20 +984,23 @@ function App() {
                    else {
                      return false
                    }
-                    
+                  }
                   }
                    
                  }
                  else {
                   
-                  
+                  if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                    return false
+                  }
+                  else {
                   if (operand%Math.round(operand) !== 0) {
                     array1.push(parseFloat(operand));
                       }
                    else {
                     array1.push(parseInt(operand));
                         }
-                      
+                  }
                   setOperand('');
     
                   const diff = array1.reduce(
@@ -1053,21 +1071,15 @@ function App() {
                     }
                    
                   }
-                  if (typeof operand === 'string') {
+                 else if (typeof operand === 'string') {
+                    if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                      return false
+                    }
+                    else {
                     if (operand%Math.round(operand) !== 0) {
-                      if (Math.ceil(operand) === 1) {
-                        array1.push(parseFloat(operand));
-                      }
-                      else {
-                        if (isNaN(operand%Math.round(operand))) {
-                          setSym('\xD7');
-                          setTruthy(false);
-                          
-                        }
-                        else {
-                        array1.push(parseFloat(operand));
-                        }
-                      }
+                      setSym('\xD7');
+                      setTruthy(false);
+                      array1.push(parseFloat(operand));
                      
                     }
                     else {
@@ -1075,7 +1087,7 @@ function App() {
                     
                     }
                   }
-                
+                  }
                       }
                      
                    
@@ -1216,7 +1228,23 @@ function App() {
                 array1.push(parseInt(operand));
                
                 }
+                if (typeof operand === 'number') {
                     
+                  if (operand%Math.round(operand) !== 0) {
+                    array1 = []
+                    array1.push(parseFloat(operand));
+                  }
+                  else {
+                  array1 = []
+                  array1.push(parseInt(operand));
+                  }
+                  setOperand('');
+                  setSym('\u2013');
+                  setTruthy(false);
+                  setNum(operand+button.name)
+                }
+                else {   
+               
                 setOperand('');
                       
                 const multiply = array1.reduce(
@@ -1251,29 +1279,20 @@ function App() {
                     return false
                   }
                 }
-                 
+              }
                }
                else {
-               
-                
-                if (operand%Math.round(operand) !== 0) {
-                  if (Math.ceil(operand) === 1) {
-                    array1.push(parseFloat(operand));
-                  }
-                  else {
-                    if (isNaN(operand%Math.round(operand))) {
-                      return false
-                    }
-                    else {
-                    array1.push(parseFloat(operand));
-                    }
-                  }
-
+                if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                  return false
                 }
                 else {
+                if (operand%Math.round(operand) !== 0) {
+                    array1.push(parseFloat(operand));
+                    }
+                else {
                 array1.push(parseInt(operand));
-                
                 }
+              }
                     
                 setOperand('');
   
@@ -1363,7 +1382,7 @@ function App() {
                   text.style.fontSize = '2.2rem';
                 }
                 setCalc([]);
-                setOperand('');
+                setOperand([]);
                 setSym('+');
                 setTruthy(false)
                 setNum(sum);
@@ -1394,7 +1413,7 @@ function App() {
                   text.style.fontSize = '2.2rem';
                 }
                 setCalc([]);
-                setOperand('');
+                setOperand([]);
                 setSym('\u2013');
                 setTruthy(false)
                 setNum(diff)
@@ -1424,7 +1443,7 @@ function App() {
                   text.style.fontSize = '2.2rem';
                 }
                 setCalc([]);
-                setOperand('');
+                setOperand([]);
                 setSym('\xD7');
                 setTruthy(false)
                 setNum(multiply);
@@ -1441,6 +1460,7 @@ function App() {
                 (previousValue, currentValue) => {
                   if (currentValue === 0) {
                     array1.pop(currentValue)
+                   
                     return 'Can\'t Divide by Zero'
                   }
                   else {
@@ -1453,8 +1473,9 @@ function App() {
                   const text = document.getElementsByClassName('input-text')[0];
                   text.style.fontSize = '2.2rem';
                 }
+               
                 setCalc([]);
-                setOperand('');
+                setOperand([]);
                 setSym('\xF7');
                 setTruthy(false)
                 setNum(divide)
@@ -1472,18 +1493,29 @@ function App() {
         }
             break
         default:
+         
+          if (typeof num === 'number') {
+            setNum(button.name);
+            setOperand(button.name)
+          }
+          else {
         if (num.length < 14) {
         setNum(num+button.name);
         setOperand(operand+button.name);
         setCalc([]);
+        setbracket(1)
         }
         else {
- 
+          setSym([]);
+          setTruthy(false);
+          setEquals([]);
+          array1 = [];
           setCalc('Max Digits Reached')
           setNum([]);
           setOperand([]);
+         
         }
-        
+      }
       }}} key={button.key} style={button.style} className='calc-buttons'>
         {button.name}
       </div>

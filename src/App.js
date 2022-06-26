@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 
 let array1 = [];
 
+
 function App() {
   const [sym, setSym] = useState([]);
   const [num, setNum] = useState([]);
@@ -37,16 +38,34 @@ function App() {
           array1 = [];
           break
           case '( )':
-            if (bracket === 1) {
-              setNum(num+')');
+
+            if (bracket === 1 && typeof sym === 'object') {
+              setNum(`${num}\xD7(`);
+              if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                return false
+              }
+              else {
+              if (operand%Math.round(operand) !== 0) {
+                array1.push(parseFloat(operand));
+              }
+              else {
+              array1.push(parseInt(operand));
+              }
+            }
+              setOperand('')
               setSym('\xd7');
               setTruthy(false)
               setbracket([]);
             }
+
             else {
-              setNum('('+num);
-              setbracket(1)
+              if (array1.length >= 1) {
+                setNum(num+')')
+              }
+              else {
+              setNum(num+'(')
             }
+          }
             break
           case '+/-':
             if (typeof operand === 'object') {
@@ -57,7 +76,8 @@ function App() {
               }
               else {
               setNum('(-');
-              setOperand('-')
+              setOperand('-');
+              setbracket([])
             }
           }
             else {
@@ -90,6 +110,7 @@ function App() {
              
               if (operand === '' || typeof operand === 'object') {
                 if (operand%Math.round(operand) !== 0) {
+                
                   if (array1[0]%Math.round(array1[0]) !== 0 && array1[0] !== undefined) {
                     if (Math.ceil(array1[0]) === 1) {
                       if (typeof num === 'number') {
@@ -113,8 +134,9 @@ function App() {
                   }
                   else {
                     if (array1[0]%Math.round(array1[0]) === 0) {
-                      setNum(num+button.name);
-                     setOperand(operand+button.name); 
+                     setNum(num+button.name);
+                     setOperand(array1[0]+button.name); 
+                     array1 = []
                      setTruthy(true)
                     }
                     else {
@@ -199,7 +221,7 @@ function App() {
              
             
               if (sym !== '+') {
-               
+              
                 if (typeof calc === 'number') {
                   array1 = [];
                   array1.push(calc)

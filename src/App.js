@@ -661,24 +661,20 @@ function App() {
                if (sym === '\xF7') {
                
                  if (typeof calc !== 'number') {
+                  if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
+                    return false
+                  }
+                  else {
                   if (operand%Math.round(operand) !== 0) {
-                    if (Math.ceil(operand) === 1) {
-                      array1.push(parseFloat(operand));
-                    }
-                    else {
-                      if (isNaN(operand%Math.round(operand))) {
-                        setSym('\xF7')
-                       }
-                       else {
-                      array1.push(parseFloat(operand));
-                      }
-                    }
-
+                    setSym('\xF7');
+                    setTruthy(false)
+                    array1.push(parseFloat(operand));
                   }
                   else {
                   array1.push(parseInt(operand));
-                  
                   }
+                }
+                 
                   if (typeof operand === 'number') {
                     
                     if (operand%Math.round(operand) !== 0) {
@@ -696,12 +692,12 @@ function App() {
                   }
                   else {     
                   setOperand('');
-    
+                  
                   const divide = array1.reduce(
                     (previousValue, currentValue) => {
                       if (currentValue === 0 || typeof currentValue !== 'number') {
                         array1.splice(array1.indexOf(currentValue), 1);
-                        
+                      
                         return 'Can\'t Divide by Zero'
                       }
                       else {
@@ -722,8 +718,11 @@ function App() {
                     
                   }
                   else {
-                    setNum(divide)
-                    
+                  
+                    setNum('');
+                    setOperand('');
+                    array1 =[];
+                    setCalc(divide)
                   }
                 }
                  }
@@ -754,7 +753,7 @@ function App() {
                       });
   
                   if (typeof divide === 'number') {
-                    
+                 
   
                     if (array1.length === 1) {
                       let a = calc / array1[0]
@@ -776,7 +775,10 @@ function App() {
                   }
                 }
                   else {
-                    setNum('')
+                    
+                    setNum('');
+                    setOperand('');
+                    array1 =[];
                     setCalc(divide)
                   }
                  }
@@ -896,7 +898,9 @@ function App() {
                     }
                     else {
                       setCalc(divide);
-                      setNum('')
+                      setNum('');
+                      setOperand('');
+                      array1 =[];
                     }
                     
                     break
@@ -1186,7 +1190,9 @@ function App() {
                   }
                   else {
                     setCalc(divide);
-                    setNum('')
+                    setNum('');
+                    setOperand('');
+                    array1 =[];
                   }
                   
                   break
@@ -1212,9 +1218,6 @@ function App() {
                       setNum(sum+button.name);
                       array1 =[];
                       array1.push(sum)
-                     
-                      
-                     
                     }
                     else {
                       return false
@@ -1333,7 +1336,7 @@ function App() {
                   
 
                   if (array1.length === 1) {
-                    let a = calc + array1[0]
+                    let a = calc * array1[0]
                     setCalc(a);
                     setOperand('');
                     setSym('\xD7');
@@ -1345,7 +1348,7 @@ function App() {
                   else {
                   setCalc(multiply);
                   setOperand('');
-                  setSym('+');
+                  setSym('\xD7');
                   setTruthy(false)
                   setNum(multiply+button.name);
                   array1 = [];
@@ -1505,8 +1508,10 @@ function App() {
                 array1.push(divide)
               }
               else {
-                setNum('')
-                setCalc(divide)
+                setNum('');
+                setCalc(divide);
+                setOperand([]);
+                array1 = []
               }
               break
                   default:

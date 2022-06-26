@@ -75,6 +75,7 @@ function App() {
                 setSym([])
               }
               else {
+               
               setNum('(-');
               setOperand('-');
               setbracket([])
@@ -91,13 +92,14 @@ function App() {
                 setOperand(operand*-1)
               }
               else {
-                if (typeof sym !== 'object') {
+                if (typeof sym !== 'object' && equals !== 1) {
                   setNum(num+'(-');
                   setOperand('-'+operand)
                 }
                 else {
              setNum('(-'+num);
-             setOperand('-'+operand)
+             setOperand(operand*-1);
+             setCalc([]);
                 }
             }
           }
@@ -184,17 +186,19 @@ function App() {
                 if (operand === '' && typeof equals === 'object') {
                  return false
                 }
-                if (operand === '' && equals === 1) {
+                if (equals === 1 && typeof operand === 'object') {
                     let a = array1[0]/100
-                    setNum(array1[0]+'%');
+                    setNum(a);
                     setOperand(a);
-                    setCalc(a)
+                    setCalc(a);
+                    setSym('\xD7');
+                    setTruthy(false)
                 }
                 else {
                   let a = Number(operand)/100
                   setNum(array1[0]+sym+operand+button.name)
                   setOperand(a);
-                }
+              }
             }
           }
             else {

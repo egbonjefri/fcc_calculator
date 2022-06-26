@@ -14,10 +14,17 @@ function App() {
   const [truthy, setTruthy] = useState(false);
   const [equals, setEquals] = useState([]);
   const [bracket, setbracket] = useState([]);
+
+
   function handleClick() {
-    
     setNum(num.replace(num.charAt([num.length-1]), ''));
-    setOperand(num.replace(num.charAt([num.length-1]), ''))
+    setOperand(num.replace(num.charAt([num.length-1]), ''));
+    array1 = [];
+    setSym([]);
+    setTruthy(false);
+    setCalc([]);
+    setEquals([])
+
   }
   const buttonMap = buttons.map((button) => {
     return (
@@ -75,13 +82,19 @@ function App() {
                 setSym([])
               }
               else {
-               
+               if (equals === 1) {
+                  setNum('(-'+num);
+                  setOperand(array1[0]*-1)
+                }
+                else {
               setNum('(-');
               setOperand('-');
               setbracket([])
             }
           }
+          }
             else {
+              
               if (typeof bracket === 'object') {
               setNum('');
               setOperand([]);
@@ -225,7 +238,7 @@ function App() {
              
             
               if (sym !== '+') {
-              
+                
                 if (typeof calc === 'number') {
                   array1 = [];
                   array1.push(calc)

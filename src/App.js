@@ -131,10 +131,8 @@ function App() {
                       if (typeof num === 'number') {
                         return false }
                         else {
-                         
                           setNum(num+'0'+button.name);
                           setOperand('0.'+operand);
-                        
                       }
                     }
                     else {
@@ -150,8 +148,7 @@ function App() {
                   else {
                     if (array1[0]%Math.round(array1[0]) === 0) {
                      setNum(num+button.name);
-                     setOperand(array1[0]+button.name); 
-                     array1 = []
+                     setOperand(operand+button.name); 
                      setTruthy(true)
                     }
                     else {

@@ -76,48 +76,93 @@ function App() {
             break
           case '+/-':
             if (typeof operand === 'object') {
-              if (equals ===1 && array1[0] < 0) {
-                setNum(array1[0]*-1)
-                setOperand(array1[0]*-1);
-                setSym([])
-              }
-              else {
-               if (equals === 1) {
+              if (equals ===1) {
+                if (array1[0] < 0) {
+                  let a = array1[0]*-1
+                  setOperand(a);
+                  setNum(a)
+                  setSym([])
+                }
+                else {
                   setNum('(-'+num);
                   setOperand(array1[0]*-1)
                 }
-                else {
+                }
+              else {
               setNum('(-');
+              setSym('+')
               setOperand('-');
               setbracket([])
             }
           }
-          }
+    
             else {
-              
               if (typeof bracket === 'object') {
               setNum('');
               setOperand([]);
             }
             else {
               if (operand < 0) {
-                setNum(operand*-1)
-                setOperand(operand*-1)
-              }
-              else {
-                if (typeof sym !== 'object' && equals !== 1) {
-                  setNum(num+'(-');
-                  setOperand('-'+operand)
+                if (array1.length > 0 && equals !== 1) {
+                  let a = array1[0]*-1
+                  setNum(a);
+                  setOperand(a)
                 }
                 else {
-             setNum('(-'+num);
-             setOperand(operand*-1);
-             setCalc([]);
+                  let a = operand*-1
+                  setNum(array1[0]+sym+a);
+                  setOperand(operand*-1);
                 }
-            }
-          }
-        }
+              }
+              if (equals === 1) {
+               
+                  if (typeof sym !== 'object') {
+                   setNum(num+'(-');
+                   setOperand(operand*-1);
+                   setCalc([]); 
+                   setEquals([]);             
+                  }
+                  else {
+                   setNum('(-'+num);
+                   setOperand(operand*-1);
+                   setCalc([]);
+                   setEquals([]);       
+                  }
           
+                }
+                else if (operand === '') {
+                  setNum(num+'(-');
+                  setOperand(operand*-1)
+                }
+              else {
+                
+                if (typeof sym !== 'object' && equals !== 1) {
+                
+                  if (array1.length > 0) {
+                    if (operand > 0){
+                     
+                    setNum(array1[0]+sym+operand);
+                    setOperand(operand*-1);
+                    }
+                    else{
+                    
+                      setNum(array1[0]+sym+operand);
+                      setOperand(operand*-1);
+                    }
+                  }
+                  else {
+                    
+                  setNum('(-'+num);
+                  setOperand('-'+operand);
+                }
+              }
+              else {
+               setNum(operand*-1);
+               setOperand(operand*-1)
+              }
+                }
+              }
+            }
             break
           case '.':
            
@@ -235,7 +280,7 @@ function App() {
              
             
               if (sym !== '+') {
-                
+               
                 if (typeof calc === 'number') {
                   array1 = [];
                   array1.push(calc)

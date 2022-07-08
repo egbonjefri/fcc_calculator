@@ -75,94 +75,67 @@ function App() {
           }
             break
           case '+/-':
-            if (typeof operand === 'object') {
-              if (equals ===1) {
-                if (array1[0] < 0) {
-                  let a = array1[0]*-1
-                  setOperand(a);
-                  setNum(a)
-                  setSym([])
+            if (operand > 0 || array1[0] > 0) {
+           
+              if (typeof sym === 'string' && equals !== 1) {
+                if (operand === '') {
+                  setNum(array1[0]+sym+'(-');
+                  setOperand('-')
                 }
                 else {
-                  setNum('(-'+num);
-                  setOperand(array1[0]*-1)
-                }
-                }
-              else {
-              setNum('(-');
-              setSym('+')
-              setOperand('-');
-              setbracket([])
-            }
-          }
-    
-            else {
-              if (typeof bracket === 'object') {
-              setNum('');
-              setOperand([]);
-            }
-            else {
-              if (operand < 0) {
-                if (array1.length > 0 && equals !== 1) {
-                  let a = array1[0]*-1
-                  setNum(a);
-                  setOperand(a)
-                }
-                else {
-                  let a = operand*-1
-                  setNum(array1[0]+sym+a);
-                  setOperand(operand*-1);
-                }
-              }
-              if (equals === 1) {
-               
-                  if (typeof sym !== 'object') {
-                   setNum(num+'(-');
-                   setOperand(operand*-1);
-                   setCalc([]); 
-                   setEquals([]);             
-                  }
-                  else {
-                   setNum('(-'+num);
-                   setOperand(operand*-1);
-                   setCalc([]);
-                   setEquals([]);       
-                  }
-          
-                }
-                else if (operand === '') {
-                  setNum(num+'(-');
+                  setNum(array1[0]+sym+operand*-1);
                   setOperand(operand*-1)
                 }
-              else {
-                
-                if (typeof sym !== 'object' && equals !== 1) {
-                
-                  if (array1.length > 0) {
-                    if (operand > 0){
-                     
-                    setNum(array1[0]+sym+operand);
-                    setOperand(operand*-1);
-                    }
-                    else{
+
+              }
+             else if (array1[0] > 0){
+              let a = array1[0] * -1;
+              array1 = [];
+              array1.push(a);
+              setOperand(a)
+              setNum('('+a);
+                  }
+                else {
+                  setOperand(operand*-1);
+                  setNum(operand*-1);
+                }
+              }
+                  else {
+                    if (typeof operand === 'object' && equals !== 1) {
+                      setNum('(-');
+                      setOperand('-');
                     
-                      setNum(array1[0]+sym+operand);
+                    }
+                    else if (typeof sym === 'string' && equals !== 1) {
+                      if (operand === '') {
+                        setNum(array1[0]+sym+'(-');
+                        setOperand('-')
+                      }
+                      else {
+                        setNum(array1[0]+sym+operand*-1);
+                        setOperand(operand*-1)
+                      }
+                    }
+                    else if (operand === '-') {
+                      setOperand([]);
+                      setNum('');
+                    }
+                    else {
+                      if (equals === 1) {
+                        let a = array1[0] * -1;
+                        array1 = [];
+                        array1.push(a);
+                        setNum(a); 
+                        setSym([])
+                        setEquals([])
+                      }
+                      else {
                       setOperand(operand*-1);
+                      setNum(operand*-1);
+                      }
                     }
                   }
-                  else {
-                    
-                  setNum('(-'+num);
-                  setOperand('-'+operand);
-                }
-              }
-              else {
-               setNum(operand*-1);
-               setOperand(operand*-1)
-              }
-                }
-              }
-            }
+               
             break
           case '.':
            
@@ -278,7 +251,7 @@ function App() {
 
             case '+':
              
-            
+            setEquals([])
               if (sym !== '+') {
                
                 if (typeof calc === 'number') {
@@ -287,8 +260,15 @@ function App() {
                 }
                 else if (typeof operand === 'string') {
                   if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
-                    return false
-                  }
+                    if (array1[0] === undefined) {
+                      return false
+                    }
+                    else {
+                      setSym('+');
+                      setNum(array1[0]+button.name);
+                    }
+
+                               }
                   else {
                   if (operand%Math.round(operand) !== 0) {
                     array1.push(parseFloat(operand));
@@ -568,7 +548,8 @@ function App() {
             
               case '\xF7':
              
-            
+                setEquals([])
+
                 if (sym !== '\xF7') {
                   if (typeof calc === 'number') {
                     array1 = [];
@@ -588,7 +569,13 @@ function App() {
                     }
                   else if (typeof operand === 'string') {
                       if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
-                        return false
+                        if (array1[0] === undefined) {
+                          return false
+                        }
+                        else {
+                        setSym('\xF7');
+                        setNum(array1[0]+button.name);
+                        }
                       }
                       else {
                       if (operand%Math.round(operand) !== 0) {
@@ -848,9 +835,10 @@ function App() {
 
                 case '\u2013':
                  
-            
+                  setEquals([])
+
                 if (sym !== '\u2013') {
-                 
+                
                   if (typeof calc === 'number') {
                     array1 = [];
                     array1.push(calc);
@@ -867,13 +855,18 @@ function App() {
                      
                     }
                   else if (typeof operand === 'string') {
-                     
+                    
                       if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
-                        return false
+                        if (array1[0] === undefined) {
+                          return false
+                        }
+                        else {
+                        setSym('\u2013');
+                        setNum(array1[0]+button.name);
+                        }
                       }
                       else {
                       if (operand%Math.round(operand) !== 0) {
-                        setSym('\u2013');
                         setTruthy(false);
                         array1.push(parseFloat(operand));
                       }
@@ -1137,7 +1130,8 @@ function App() {
 
                 case '\xD7':
              
-            
+                  setEquals([])
+
               if (sym !== '\xD7') {
              
                 if (typeof calc === 'number') {
@@ -1158,7 +1152,13 @@ function App() {
                   }
                  else if (typeof operand === 'string') {
                     if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
-                      return false
+                      if (array1[0] === undefined) {
+                        return false
+                      }
+                      else {
+                      setSym('\xD7');
+                      setNum(array1[0]+button.name);
+                        }
                     }
                     else {
                     if (operand%Math.round(operand) !== 0) {
@@ -1589,7 +1589,7 @@ function App() {
         setNum(num+button.name);
         setOperand(operand+button.name);
         setCalc([]);
-        setbracket(1)
+        setbracket(1);
         }
         else {
           setSym([]);

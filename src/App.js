@@ -18,9 +18,32 @@ function App() {
 
   function handleClick() {
     setNum(num.replace(num.charAt([num.length-1]), ''));
-    setOperand(num.replace(num.charAt([num.length-1]), ''));
-    array1 = [];
-    setSym([]);
+    setOperand(operand.replace(operand.charAt([operand.length-1]), ''));
+    function symChecker() {
+      let plusReg = /[+]/
+      let minusReg = /[\u2013]/
+      let divReg = /[\xF7]/
+      let mulReg = /[\xD7]/
+      if (plusReg.test(num)){
+        setSym('+')
+      }
+      else if (minusReg.test(num)) {
+        setSym('\u2013')
+      }
+      else if (divReg.test(num)) {
+        setSym('\xF7')
+      }
+      else if(mulReg.test(num)) {
+        setSym('\xD7') 
+      }
+      else {
+        setSym([])
+      }
+    }
+      
+    symChecker();
+    //setOperand([])
+    //array1 = [];
     setTruthy(false);
     setCalc([]);
     setEquals([])

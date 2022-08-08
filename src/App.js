@@ -11,6 +11,7 @@ function App() {
   const [num, setNum] = useState([]);
   const [calc, setCalc] = useState([]);
   const [operand, setOperand] = useState([]);
+// eslint-disable-next-line
   const [truthy, setTruthy] = useState(false);
   const [equals, setEquals] = useState([]);
   const [bracket, setbracket] = useState([]);
@@ -42,8 +43,7 @@ function App() {
     }
       
     symChecker();
-    //setOperand([])
-    //array1 = [];
+  
     setTruthy(false);
     setCalc([]);
     setEquals([])
@@ -161,62 +161,50 @@ function App() {
                
             break
           case '.':
-           
-            if (Math.round(operand) === 0) {
-             
-              if (operand === '' || typeof operand === 'object') {
-                if (operand%Math.round(operand) !== 0) {
-                
-                  if (array1[0]%Math.round(array1[0]) !== 0 && array1[0] !== undefined) {
-                    if (Math.ceil(array1[0]) === 1) {
-                      if (typeof num === 'number') {
-                        return false }
-                        else {
-                          setNum(num+'0'+button.name);
-                          setOperand('0.'+operand);
-                      }
-                    }
-                    else {
-                      if (typeof num === 'number') {
-                        return false }
-                        else {
-                      setNum(num+button.name);
-                      setOperand(operand+button.name); 
-                      setTruthy(true)
-                    }
-                  }
-                  }
-                  else {
-                    if (array1[0]%Math.round(array1[0]) === 0) {
-                     setNum(num+button.name);
-                     setOperand(operand+button.name); 
-                     setTruthy(true)
-                    }
-                    else {
-                setNum(num+'0'+button.name);
-                setOperand('0.'+operand);
-               
-                    }
-                }
-                }
-                else {
-                  return false
-                }
+            let regex = /\./g
+           if (operand === '') {
+             if (!regex.test(operand)) {
+               setOperand('0.'+operand);
+               setNum(num+'0.')
+             } 
+             else {
+               return false
+             }
+           }
+           else if (operand.length > 0) {
+            if (!regex.test(operand)) {
+            setNum(num+button.name);
+            setOperand(operand+button.name)
+            }
+            else {
+              return false
+            }
+           }
+           else {
+             if(typeof array1[0] === 'number') {
+             if (!regex.test(array1[0])) {
+              setNum(num+button.name);
+              setOperand(operand+button.name)
+             }
+             else {
+               return false
+             }
+           }
+           else {
+            if (!regex.test(operand)) {
+              if(num.length === 0) {
+                setNum('0.');
+                setOperand('0.')
+              }
+              else if (num.length > 0) {
+                setNum(num+button.name);
+                setOperand(operand+button.name)
               }
               else {
-              setNum('0'+button.name);
-              setOperand('0'+button.name); 
-              setTruthy(true)
-             
-            }
+                return false
+              }
+            } 
           }
-            else {
-             
-              if (!truthy) {
-              setNum(num+button.name);
-              setOperand(operand+button.name); 
-              setTruthy(true)
-            }
           }
         
             break

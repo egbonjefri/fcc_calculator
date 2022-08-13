@@ -183,8 +183,9 @@ function App() {
            else {
              if(typeof array1[0] === 'number') {
              if (!regex.test(array1[0])) {
-              setNum(num+button.name);
-              setOperand(operand+button.name)
+              setNum(array1[0]+button.name);
+              setOperand(array1[0]+button.name);
+              array1 = []
              }
              else {
                return false
@@ -579,6 +580,7 @@ function App() {
                      
                     }
                   else if (typeof operand === 'string') {
+                   
                       if (isNaN(parseFloat(operand)) || isNaN(parseInt(operand))) {
                         if (array1[0] === undefined) {
                           return false
@@ -599,12 +601,9 @@ function App() {
                       }
                     }
                   }
-                     
-                       
-                     
+                           
                   setOperand('');
                   if (array1.length === 1) {
-                    
                       setNum(array1[0]+button.name)
                       setSym('\xF7');
                       setTruthy(false)
@@ -612,7 +611,7 @@ function App() {
         
                       else {
                        if (typeof calc === 'number') {
-                     setNum(calc+button.name);
+                       setNum(calc+button.name);
                        setSym('\xF7');
                        setTruthy(false);
                        }
@@ -722,6 +721,7 @@ function App() {
                     return false
                   }
                   else {
+                    
                   if (operand%Math.round(operand) !== 0) {
                     setSym('\xF7');
                     setTruthy(false)
@@ -733,7 +733,6 @@ function App() {
                 }
                  
                   if (typeof operand === 'number') {
-                    
                     if (operand%Math.round(operand) !== 0) {
                       array1 = []
                       array1.push(parseFloat(operand));
@@ -749,7 +748,7 @@ function App() {
                   }
                   else {     
                   setOperand('');
-                  
+                 
                   const divide = array1.reduce(
                     (previousValue, currentValue) => {
                       if (currentValue === 0 || typeof currentValue !== 'number') {
@@ -1478,7 +1477,7 @@ function App() {
                 }
                 setCalc([]);
                 setOperand([]);
-                setSym('+');
+                setSym([]);
                 setTruthy(false)
                 setNum(sum);
                 array1 = [];
@@ -1509,7 +1508,7 @@ function App() {
                 }
                 setCalc([]);
                 setOperand([]);
-                setSym('\u2013');
+                setSym([]);
                 setTruthy(false)
                 setNum(diff)
                 array1 = [];
@@ -1539,7 +1538,7 @@ function App() {
                 }
                 setCalc([]);
                 setOperand([]);
-                setSym('\xD7');
+                setSym([]);
                 setTruthy(false)
                 setNum(multiply);
                 array1 = [];
@@ -1571,7 +1570,7 @@ function App() {
                
                 setCalc([]);
                 setOperand([]);
-                setSym('\xF7');
+                setSym([]);
                 setTruthy(false)
                 setNum(divide)
                 array1 = [];
